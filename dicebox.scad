@@ -231,34 +231,42 @@ module slot () {
 
 module slots (){  
     slot();
+    
+    slot_move = slot_short_diag+slot_spacing;
 
+    // BOTTOM L
     translate([
-        -slot_edge*1.5 - slot_spacing ,
-        -slot_radius - slot_spacing/2 ,
+        -(slot_move*sin(60)) ,
+        -(slot_move*sin(30)) ,
         0]) slot();
     
+    // BOTTOM R
     translate([
-        slot_edge*1.5 + slot_spacing,
-        -slot_radius - slot_spacing/sqrt(3),
+        slot_move*sin(60),
+        -(slot_move*sin(30)),
         0]) slot();
     
+    // TOP L
     translate([
-        -slot_edge*1.5 - slot_spacing,
-        slot_radius + slot_spacing/2,
+        -(slot_move*sin(60)),
+        slot_move*sin(30),
         0]) slot();
     
+    // TOP R
     translate([
-        slot_edge*1.5 + slot_spacing,
-        slot_radius + slot_spacing/2,
+        slot_move*sin(60),
+        slot_move*sin(30),
         0]) slot();
     
+    // TOP
     translate([0,
-    slot_short_diag+slot_spacing,
+    slot_move,
     0])
         slot();
     
+    // Bottom
     translate([0,
-    -slot_short_diag-slot_spacing,
+    -slot_move,
     0])
         slot();    
 }
