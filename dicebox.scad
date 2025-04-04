@@ -46,7 +46,7 @@ magnet_offset_raw = 3; // How far the edge off the magnet should be from the edg
 }
 
 // IMAGE PARAMETERS
-image_path = "./D20-Dice-Isometric-SVG-a9w9ie.svg";
+image_path = "./D20-Dice-Isometric-SVG.svg";
 image_depth = 1;
 // keeps image proportional to case size
 image_scale = slot_edge/30;
@@ -100,20 +100,6 @@ module case_base (xpos,ypos,zpos) {
       linear_extrude(case_thickness) offset(r=+case_corner_rad) offset(delta=-case_corner_rad) translate([xpos,ypos,zpos]) fhex(case_edge);
 }
 
-// Outer lid for the top
-module outer_lid (xpos,ypos,zpos) {
-    
-    difference(){
-        // Outer lid
-        linear_extrude(case_thickness*1.5) offset(r=+case_corner_rad) offset(delta=-case_corner_rad) translate([xpos,ypos,zpos]) fhex(case_edge+outer_lid_thickness*2);
-        
-        // Slot to cut
-        translate([xpos,ypos,zpos+lid_floor_thickness]) linear_extrude(case_thickness*1.5) offset(r=+case_corner_rad) offset(delta=-case_corner_rad) fhex(case_edge+tol);
-        
-        
-        translate([xpos,ypos,zpos]) logo();
-    }
-}
 
 module magnet_hole () {
     cylinder(h=magnet_depth+tol*2, r=magnet_width/2,center=true);
@@ -297,6 +283,23 @@ module case_bottom_open (xpos,ypos,zpos){
 }
 
 //TOP OF CASE
+
+// Outer lid for the top
+module outer_lid (xpos,ypos,zpos) {
+    
+    difference(){
+        // Outer lid
+        linear_extrude(case_thickness*1.5) offset(r=+case_corner_rad) offset(delta=-case_corner_rad) translate([xpos,ypos,zpos]) fhex(case_edge+outer_lid_thickness*2);
+        
+        // Slot to cut
+        translate([xpos,ypos,zpos+lid_floor_thickness]) linear_extrude(case_thickness*1.5) offset(r=+case_corner_rad) offset(delta=-case_corner_rad) fhex(case_edge+tol);
+        
+        
+        translate([xpos,ypos,zpos]) logo();
+    }
+}
+
+
 module top_slot (){
     
     rotate([0,0,30]) linear_extrude(case_thickness) offset(r=+case_corner_rad) offset(delta=-case_corner_rad) translate([xpos,ypos,zpos]) fhex(case_edge);
