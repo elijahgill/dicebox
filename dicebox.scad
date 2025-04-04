@@ -138,15 +138,15 @@ module magnet_holes(){
     
     // TOP LEFT
     translate([
-        -(case_edge/2-magnet_offset/sqrt(3)),
-        (case_radius-magnet_offset),
+        -((case_edge-magnet_offset)*sin(30)),
+        ((case_edge-magnet_offset)*sin(60)),
         zpos]) 
     magnet_hole();
     
     // BOTTOM RIGHT
     translate([
-        (case_edge/2-magnet_offset/sqrt(3)),
-        -(case_radius-magnet_offset),
+        ((case_edge-magnet_offset)*sin(30)),
+        -((case_edge-magnet_offset)*sin(60)),
         zpos]) 
     magnet_hole();
     
@@ -183,17 +183,17 @@ module magnet_posts(){
     
     // TOP LEFT
     translate([
-        -(case_edge/2-tol),
-        (case_radius-tol),
+        -((case_edge-tol)*sin(30)),
+        ((case_edge-tol)*sin(60)),
         zpos]) 
     magnet_post();
     
     // TOP RIGHT
     translate([
-        case_edge/2-tol,
-        case_radius-tol,
+        (case_edge-tol)*sin(30),
+        (case_edge-tol)*sin(60),
         zpos]) 
-    rotate([0,0,-60]) magnet_post();
+    rotate([0,0,300]) magnet_post();
     
     // MID LEFT
     translate([
@@ -211,15 +211,15 @@ module magnet_posts(){
     
     // BOTTOM LEFT
     translate([
-        -(case_edge/2-tol),
-        -(case_radius-tol),
+        -((case_edge-tol)*sin(30)),
+        -((case_edge-tol)*sin(60)),
         zpos]) 
     rotate([0,0,120]) magnet_post();
     
     // BOTTOM RIGHT
     translate([
-        (case_edge/2-tol),
-        -(case_radius-tol),
+        ((case_edge-tol)*sin(30)),
+        -((case_edge-tol)*sin(60)),
         zpos]) 
     rotate([0,0,180]) magnet_post();
 }
