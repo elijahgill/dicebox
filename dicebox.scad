@@ -10,7 +10,7 @@ $fn = 64;
 slot_edge = 14.5;
 
 // Depth of a slot on one side. This should be more than half the thickness of your dice
-slot_depth = 13;
+slot_depth = 12;
 
 // Rounding on the corners of the slots
 slot_corner_rad = 1;
@@ -282,6 +282,34 @@ module case_bottom_open (xpos,ypos,zpos){
     }    
 }
 
+// MIDDLE INSERT
+
+module middle_lid (xpos,ypos,zpos) {
+    
+    difference(){
+        // Outer lid
+        linear_extrude(case_thickness*1) offset(r=+case_corner_rad) offset(delta=-case_corner_rad) translate([xpos,ypos,zpos]) fhex(case_edge+outer_lid_thickness*2);
+        
+        // Slot to cut
+        translate([xpos,ypos,zpos+lid_floor_thickness]) linear_extrude(case_thickness*1) offset(r=+case_corner_rad) offset(delta=-case_corner_rad) fhex(case_edge+tol);
+        
+        // Magnet holes
+        #translate([xpos,ypos,-tol-case_thickness/2]) magnet_holes();
+    }
+}
+
+module case_middle (xpos,ypos,zpos){
+    
+    difference() {
+        union(){
+            case_base(xpos,ypos,zpos); 
+            translate([0,0,0]) rotate([180,0,0]) case_top(xpos,ypos,zpos);
+        }
+        translate([xpos,ypos,zpos+(lid_floor_thickness+tol)]) slots();
+        translate([xpos,ypos,zpos]) magnet_holes();
+    }    
+}
+
 //TOP OF CASE
 
 // Outer lid for the top
@@ -316,6 +344,6 @@ module case_top (xpos,ypos,zpos){
 }
 
 //RENDER
-case_bottom (0,0,0);
-case_top (case_edge*2.25,0,0);
-//case_bottom_open (0,case_edge*2.25,0);
+case_middle (0,0,0);
+//case_top (case_edge*2.25,0,0);
+//case_bottom (0,case_edge*2.25,0);
